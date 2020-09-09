@@ -1,6 +1,7 @@
 from Plot import plot_res, plot_f, plot_E
-from Modulo_elasticidade_var import modE
+from Modulo_elasticidade_var import ModElasticidade
 from Newton_raphson import incremental, nao_incremental, incremental_cons
+from Matriz import Matriz
 
 def loads(q: float, n:int = 100):
     '''
@@ -35,17 +36,16 @@ def loads(q: float, n:int = 100):
             f.append(0.0)
     return f
 
-def linear(AL: float, F: float, u:float, n: int):
+def linear(F: float, u:float, n: int, K):
     '''
     ***************************************************************************
     data criacao:     30/08/2020
-    data modificacao: 00/00/0000
+    data modificacao: 05/09/2020
     ---------------------------------------------------------------------------
     linear : solucao linear
     ---------------------------------------------------------------------------
     Entrada:
     ---------------------------------------------------------------------------
-    AL     - A/L, onde A é a area e L é o comprimento
     F      - vetor F no passo de tempo n+1
     u      - deslocamento(atual)
     n      - passo de tempo
@@ -58,17 +58,15 @@ def linear(AL: float, F: float, u:float, n: int):
     OBS:
     **************************************************************************
     '''
-    E = modE(n , u)
-    K = E*AL
-    u = F/K
+    Ki= K.update(n, u)
+    u = F/Ki
 
     # ... checa o equilibrio
-    E = modE(n,u)*AL
-    K = E*AL
-    R = F - K*u
+    Ki= K.update(n, u)
+    R = F - Ki*u
     print(f"Linear : passo de carga {n}: |F- Ku| = {abs(R):.6e}")
 
-    return u, E
+    return u, K.E
 
 
 def main():
@@ -77,10 +75,17 @@ def main():
     A: float = 1.0
     # comprimento
     L: float = 1.0
-    AL = A/L
 
     # forcao aplicada ao longo do tempo
     step_loads = loads(-1.1, n = 40)
+
+    # Modulo de elasticidade
+    modE = ModElasticidade(u_var = True, t_var = True, modE = 4.0)
+
+    # Definido a amtriz de coeficiente
+    K = Matriz(modE, A = A, L = L)
+
+    print(K.L, K.A, K.E)
 
     # --- Nao incremental
 
@@ -88,11 +93,11 @@ def main():
     u = 0.0
 
     res_n_inc = [u]
-    E_n_inc = [modE(0, 0)]
+    E_n_inc = [modE.update(0, 0)]
     for n in range(1, len(step_loads)):
         F = step_loads[n]
         # newton-rapshon
-        u, E = nao_incremental(AL, F, u, n)
+        u, E = nao_incremental(F, u, n, K)
         # armazenando o modulo de elasticidade atualizado
         E_n_inc.append(E)
         # armazenando a resposta
@@ -105,11 +110,11 @@ def main():
     u = 0.0
 
     res_inc = [u]
-    E_inc = [modE(0, 0)]
+    E_inc = [modE.update(0, 0)]
     for n in range(1, len(step_loads)):
         F = step_loads[n]
         # newton-rapshon
-        u, E = incremental(AL, F, u, n)
+        u, E = incremental(F, u, n, K)
         # armazenando o modulo de elasticidade atualizado
         E_inc.append(E)
         # armazenando a resposta
@@ -122,12 +127,12 @@ def main():
     u = 0.0
 
     res_linear = [u]
-    E_linear = [modE(0, 0)]
+    E_linear = [modE.update(0, 0)]
     for n in range(1, len(step_loads)):
         F = step_loads[n]
         # atualizando o modulo de elasticidade
         # linear
-        u, E = linear(AL, F, u, n)
+        u, E = linear(F, u, n, K)
         # armazenando o modulo de elasticidade atualizado
         E_linear.append(E)
         # armazenando a resposta
@@ -140,17 +145,15 @@ def main():
     u = 0.0
 
     res_inc_cons = [u]
-    E_inc_cons = [modE(0, 0)]
+    E_inc_cons = [modE.update(0, 0)]
     for n in range(1, len(step_loads)):
         # df
         if n == 0:
             dF = step_loads[n]
         else:
             dF = step_loads[n] - step_loads[n-1]
-        # modulo de elasticidade atuaizada em funcao do tempo
-        E = modE(n, u)
         # linear
-        u, E = incremental_cons(AL, dF, u, n)
+        u, E = incremental_cons(dF, u, n, K)
         # armazenando o modulo de elasticidade atualizado
         E_inc_cons.append(E)
         # armazenando a resposta

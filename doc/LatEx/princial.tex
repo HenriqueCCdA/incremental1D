@@ -1,0 +1,307 @@
+\documentclass[12pt,a4paper]{article}
+
+\newcommand{\diff}[1]{d#1}
+\newcommand{\dd}[2]{\frac{\partial #1}{\partial #2}}
+
+\usepackage{amsmath}
+
+%---------------------------------------------------------------------------
+\begin{document}
+%---------------------------------------------------------------------------	
+	
+\section{Objetivo}
+
+O objetivo final deste texto é chegar a um modelo de uma equação de um problema elástico não-linear unidimensional. Para isso a equação de equilíbrio estático será discretizado via elementos finitos. A malha será constituída de apenas um elemento linear. O problema considerado será semi-estático devido ao passo de carregamento. O tempo sera considerado de maneira discreta através de $t_n = n$ e $t_{n+1} = n+1$
+
+
+\subsection{Equação de elasticidade 1D}
+
+A equação de elasticidade 1D sem forças de corpo é dada por,
+
+\begin{equation}
+	\dd{\sigma}{x} = 0
+	\label{eq_equilibrio}
+\end{equation}
+	
+\noindent
+onde $\sigma$ é a tensão uniaxial.
+
+\subsection{Discretização via elementos finitos}
+
+Aplicando o método dos resíduos ponderados na (eq.\ref{eq_equilibrio}) tem-se,
+
+\begin{equation}
+\int_0^L{\dd{\sigma}{x}w\diff{L}} = 0
+\label{eq_residuos_pon}
+\end{equation} 
+
+Considerando a regra do produto para derivadas temos,
+
+\begin{equation}
+\dd{(\sigma w)}{x} = \dd{\sigma}{x}w + \dd{w}{x}\sigma
+\end{equation} 
+ 
+E considerando que que,
+
+\begin{equation}
+\int_0^L \dd{(\sigma w)}{x} \diff{L} = \sigma w |_0^L
+\end{equation} 
+ 
+Logo pode-se escrever a (eq.\ref{eq_residuos_pon}) como,
+
+\begin{equation}
+\int_0^L \dd{w}{x}\sigma \diff{L} = \sigma w |_0^L
+\label{eq_var}
+\end{equation}
+
+Considerando apenas um elementos a função de ponderação é dada por,
+
+\begin{equation}
+w(x) = N_1(x) w_1 + N_2(x) w_2
+\end{equation} 
+	
+Substituindo a função $w$ na equação (eq.\ref{eq_var}),
+
+\begin{equation}
+\begin{split}
+&\int_0^L \left( \dd{N_1}{x}w_1 + \dd{N_2}{x}w_2 \right)\sigma \diff{L} =\\
+&\left(N_1(L) w_1 + N_2(L) w_2\right) \sigma\left(L\right) - \left(N_1(0) w_1 + N_2(0) w_2\right) \sigma\left(0\right)
+\end{split}
+\end{equation}
+	
+Rearranjando os termos temos,
+
+\begin{equation}
+\begin{split}
+&w_1\left( \int_0^L \dd{N_1}{x}\sigma \diff{L} - N_1(L) \sigma\left(L\right) + N_1(0) \sigma\left(0\right) \right) +\\
+&w_2\left( \int_0^L \dd{N_2}{x}\sigma \diff{L} - N_2(L) \sigma\left(L\right) + N_2(0) \sigma\left(0\right) \right) = 0
+\end{split}
+\end{equation}
+
+Considerando que $N_1(0) = N_2(L) = 1$ e $N_1(L) = N_2(0) = 0$,
+
+\begin{equation}
+\begin{split}
+w_1\left( \int_0^L \dd{N_1}{x}\sigma \diff{L} + \sigma\left(0\right) \right) +
+w_2\left( \int_0^L \dd{N_2}{x}\sigma \diff{L} - \sigma\left(L\right) \right) = 0
+\end{split}
+\end{equation}
+	
+Como $w_1$ e $w_2$ são constantes arbitrarias é preciso que,
+
+\begin{equation}
+\int_0^L \dd{N_1}{x}\sigma \diff{L} + \sigma\left(0\right) = 0
+\label{eq_u1}
+\end{equation}
+
+\begin{equation}
+\int_0^L \dd{N_2}{x}\sigma \diff{L} - \sigma\left(L\right) = 0
+\label{eq_u2}
+\end{equation}
+ 
+Definindo $B_i = \dd{N_i}{x}$, tem-se
+
+\begin{equation}
+\int_0^L B_1\sigma \diff{L}  = -\sigma\left(0\right)
+\label{eq_sigma1_final}
+\end{equation}
+
+\begin{equation}
+\int_0^L B_2\sigma \diff{L}  = + \sigma\left(L\right)
+\label{eq_sigma2_final}
+\end{equation}
+ 
+ 
+\subsection{Relação tensão deformação não incremental}
+
+Usando a relação constitutiva 
+
+\begin{equation}
+\sigma = E\left(t,u\right) \varepsilon  
+\label{eq_t_defor}
+\end{equation}
+ 
+\noindent
+onde $E\left(t,u\right)$ é o módulo de elasticidade com variação tanto em $t$ quanto $x$.
+
+A relação deslocamento deformação é dada por,
+
+\begin{equation}
+\varepsilon  = \dd{u}{x}
+\end{equation}
+
+Portanto $\sigma$ é dado por,
+
+\begin{equation}
+\sigma = E\left(t,u\right) \left(\dd{N_1}{x}u_1 + \dd{N_2}{x}u_2\right) = E\left(t,u\right) \left(B_1 u_1 + B_2 u_2\right)   
+\label{eq_deform_u}
+\end{equation}
+
+Substituindo a relação tensão-deformação (eq.\ref{eq_t_defor}) nas  (eq.\ref{eq_sigma1_final}) e (eq.\ref{eq_sigma2_final}), 
+
+\begin{equation}
+\int_0^L B_1E \left(t,u\right) \varepsilon \diff{L} = - \sigma\left(0\right)
+\end{equation}
+
+\begin{equation}
+\int_0^L B_2E\left(t,u\right) \varepsilon \diff{L}  = \sigma\left(L\right)
+\end{equation}
+
+Substituindo agora (eq.\ref{eq_deform_u}),
+
+\begin{equation}
+u_1 \int_0^L B_1E \left(t,u\right) B_1 \diff{L} + u_2 \int_0^L B_1E \left(t,u\right) B_2 \diff{L} = - \sigma\left(0\right)
+\end{equation}
+
+\begin{equation}
+u_1 \int_0^L B_2E \left(t,u\right) B_1 \diff{L} + u_2 \int_0^L B_2E \left(t,u\right) B_2 \diff{L} = \sigma\left(L\right)
+\end{equation}
+
+Definido $k_{ij}$ e $f_i$ como
+
+\begin{equation}
+k_{ij} = \int_0^L B_iE \left(t,u\right) B_j \diff{L}
+\end{equation}
+
+\begin{equation}
+f_{1} = -\sigma\left(0\right)
+\end{equation}
+
+\begin{equation}
+f_{2} = \sigma\left(L\right)
+\end{equation}
+ 
+Pode-se escrever,
+
+\begin{equation}
+\mathbf{K}(t, u) \mathbf{u} = \mathbf{F}
+\end{equation}
+
+\noindent
+onde $\mathbf{K}(t, u)$ indica que a matriz de coeficiente depende explicitamente de $t$ e $u$. Considerando varios passo de carga tem-se,
+
+\begin{equation}
+\mathbf{K}_{n+1}(u_{n+1}) \mathbf{u}_{u+1} = \mathbf{F}_{n+1}
+\end{equation}
+ 
+ 
+\subsection{Relação tensão deformação incremental}
+
+Usando a relação constitutiva 
+
+\begin{equation}
+\dot{\sigma} = E\left(t,u\right) \dot{\varepsilon}  
+\label{eq_t_defor_inc}
+\end{equation}
+
+\noindent
+onde $E\left(t,u\right)$ é o módulo de elasticidade com variação tanto em $t$ quanto $x$.
+
+A $\sigma$ neste caso precisa ser obtido por integração temporal,
+
+\begin{equation}
+\int_{t_0}^{t_1} \dot{\sigma} \diff{t} = \int_{t_0}^{t_1} E\left(t,u\right) \dot{\varepsilon} \diff{t} 
+\end{equation}
+
+\noindent
+onde $t_1$ e $t_0$ são dois intervalos de tempo. Matematicamente, de maneira exata, temos, 
+ 
+\begin{equation}
+\sigma\left(t_1\right) - \sigma\left(t_0\right) = \int_{t_0}^{t_1} \diff{\sigma} = \int_{t_0}^{t_1} E\left(t,u\right) \diff{\varepsilon}
+\end{equation}
+
+Usando o teorema do valor médio podemos escrever, 
+ 
+\begin{equation}
+E\left(t^*,u\right)\left(\varepsilon(t_1) - \varepsilon(t_0)\right)  = \int_{t_0}^{t_1} E\left(t,u\right) \diff{\varepsilon}
+\end{equation}
+
+\noindent
+onde $E\left(t^*,u\right)$. Para o teorema ser valido $E(t_0, u)$ tem que ser continua no intervalo fechado $[t_0-t_1]$. Considerando  $t^*=t_1$, tem-se,
+
+\begin{equation}
+\sigma\left(t_1\right) = \sigma\left(t_0\right) + E\left(t_1,u\right) \left(\varepsilon(t_1) - \varepsilon(t_0)\right)
+\end{equation}
+
+Definindo,
+
+\begin{equation}
+\varepsilon(t_1) - \varepsilon(t_0) = \Delta\varepsilon(t_1)
+\end{equation}
+
+\noindent
+e considerando $t_0 - n$ e $t_1 - n + 1$ pode se escrever a tensão discretizada temporalmente como,
+
+\begin{equation}
+\sigma_{n + 1} = \sigma_{n} + E_{n+1}\left(u\right) \Delta\varepsilon_{n+1}
+\end{equation}
+
+A relação entre o incremento de deformação e o incremento de deslocamento é,
+
+\begin{align}
+&\varepsilon_{n+1} - \varepsilon_{n} = B_1 u_1^{n+1} + B_2 u_2^{n+1} - B_1 u_1^{n} + B_2 u_2^{n}\\
+&\varepsilon_{n+1} - \varepsilon_{n} = B_1(u_1^{n+1} - u_1^{n}) + B_2 ( u_2^{n+1} - u_2^{n})\\
+&\Delta \varepsilon_{n+1} = B_1 \Delta u_1^{n+1} + B_2 \Delta u_2^{n+1}
+\end{align}
+
+
+Substituindo a relação tensão-deformação (eq.\ref{eq_t_defor}) nas  (eq.\ref{eq_sigma1_final}) e (eq.\ref{eq_sigma2_final}), 
+
+\begin{equation}
+\int_0^L B_1 E_{n+1}\left(u\right) \Delta\varepsilon_{n+1} \diff{L}= -\int_0^L B_1 \sigma_{n} \diff{L} - \sigma\left(0\right)
+\end{equation}
+
+
+\begin{equation}
+\int_0^L B_2 E_{n+1}\left(u\right) \Delta\varepsilon_{n+1}  = -\int_0^L B_1 \sigma_{n}\diff{L} + \sigma\left(L\right)
+\end{equation}
+
+
+
+Substituindo agora (eq.\ref{eq_deform_u}),
+
+\begin{equation}
+\begin{split}
+&\Delta u_1^{n+1} \int_0^L B_1E_{n+1}\left(u\right) B_1 \diff{L} + \Delta u_2^{n+1} \int_0^L B_1E_{n+1}\left(u\right) B_2 \diff{L} =\\
+&-\int_0^L B_1 \sigma_{n}\diff{L} - \sigma\left(0\right)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+&\Delta u_1^{n+1} \int_0^L B_2 E_{n+1}\left(u\right) B_1 \diff{L} + \Delta u_2^{n+1} \int_0^L B_2 E_{n+1}\left(u\right) B_2 \diff{L} =\\
+&-\int_0^L B_2 \sigma_{n}\diff{L} + \sigma\left(L\right)
+\end{split}
+\end{equation}
+
+Definido $k_{ij}$ e $f_i$ como
+
+\begin{equation}
+k_{ij} = \int_0^L B_i E_{n+1}\left(u\right) B_j \diff{L}
+\end{equation}
+
+\begin{equation}
+f_{1} = -\sigma\left(0\right)
+\end{equation}
+
+\begin{equation}
+f_{2} = \sigma\left(L\right)
+\end{equation}
+
+\begin{equation}
+f^s_{i} = \int_0^L B_i \sigma_{n}\diff{L}
+\end{equation}
+
+Pode-se escrever,
+
+\begin{equation}
+\mathbf{K}(n+1, u_{n+1}) \Delta \mathbf{u}_{n+1} = \mathbf{F}_{n+1} - \mathbf{F}^s_n = \Delta \mathbf{F}_{n+1}
+\end{equation}
+
+\noindent
+onde $u$ é avaliado no tempo $n+1$.
+ 
+ 
+%---------------------------------------------------------------------------
+\end{document}
+%---------------------------------------------------------------------------
