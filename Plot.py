@@ -13,19 +13,20 @@ def plot_res(res_inc: list, res_n_inc: list
     fig, ax = plt.subplots()
 
     # plot res
-    ax.plot(x, y_inc, label = 'Incremental', ls = '--', marker='s')
-    ax.plot(x, y_n_inc, label = 'Não incremetal', ls='--', marker='*')
-    ax.plot(x, y_linear, label = 'Linear', ls='--', marker = '^')
-    ax.plot(x, y_inc_cons, label = 'Incremental cons', ls='--', marker = 'v')
+    ax.plot(x, y_linear, label = 'Lin', ls='--', marker = '^')
+    ax.plot(x, y_n_inc, label = 'NR', ls='--', marker='*')
+    ax.plot(x, y_inc, label = 'NRI', ls = '--', marker='s')
+    ax.plot(x, y_inc_cons, label = 'NRCI', ls='--', marker = 'v')
     ax.hlines(1,0, 40, ls='--', colors='black')
     ax.vlines(10,-10, 10, ls='--', colors='red')
     ax.vlines(20,-10, 10, ls='--', colors='red')
     ax.legend(loc = 'lower right')
-    ax.set_ylabel('Deslocamento do topo')
+    ax.set_ylabel('Comprimento')
     ax.set_xlabel('Tempo')
-    ax.set_ylim((0, L*1.2))
+    ax.set_ylim((0.4, L*1.2))
     ax.set_xlim((0, len(x)))
-    plt.show()
+#   plt.show()
+    plt.savefig('desloc.png', dpi = 300)
 
 def plot_f(f: list):
 
@@ -38,7 +39,8 @@ def plot_f(f: list):
     ax.set_xlabel('Tempo')
     ax.set_ylim((min(f)-0.1,max(f)+0.1))
     ax.set_xlim((0, 40))
-    plt.show()
+#   plt.show()
+    plt.savefig('forces.png', dpi = 300)
 
 def plot_E(E: list):
 
@@ -48,10 +50,10 @@ def plot_E(E: list):
 
     fig, ax = plt.subplots()
 
-    ax.plot(x, E_inc, label = 'Incremental', ls = '--', marker='s')
-    ax.plot(x, E_n_inc, label = 'Não incremental', ls = '--', marker='*')
-    ax.plot(x, E_linear, label = 'Linear', ls = '--', marker='^')
-    ax.plot(x, E_n_inc_cons, label = 'Incremental cons', ls = '--', marker='v')
+    ax.plot(x, E_linear, label = 'Lin', ls = '--', marker='^')
+    ax.plot(x, E_n_inc, label = 'NR', ls = '--', marker='*')
+    ax.plot(x, E_inc, label = 'NRI', ls = '--', marker='s')
+    ax.plot(x, E_n_inc_cons, label = 'NRCI', ls = '--', marker='v')
     ax.vlines(10,0, 50, ls='--', colors='red')
     ax.vlines(20,0, 50, ls='--', colors='red')
     ax.set_ylabel('Modulo de Elasticidade')
@@ -59,4 +61,5 @@ def plot_E(E: list):
     ax.legend(loc = 'lower right')
     ax.set_ylim((min(E_inc)-0.1,max(E_inc)+0.1))
     ax.set_xlim((0, len(x)))
-    plt.show()
+#   plt.show()
+    plt.savefig('modE.png', dpi = 300)

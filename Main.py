@@ -85,8 +85,6 @@ def main():
     # Definido a amtriz de coeficiente
     K = Matriz(modE, A = A, L = L)
 
-    print(K.L, K.A, K.E)
-
     # --- Nao incremental
 
     # deslocamento inicial

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6670 64-bit) (preloaded format=pdflatex 2018.5.3)  11 SEP 2020 02:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6670 64-bit) (preloaded format=pdflatex 2018.5.3)  13 SEP 2020 02:03
 entering extended mode
 **./princial.tex
 (princial.tex
@@ -110,35 +110,54 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box28
 \@float@everytoks=\toks21
 \@floatcapt=\box29
+)
+("D:\programas\MiKTeX 2.9\tex\latex\algorithms\algorithmic.sty"
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+
+("D:\programas\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@ALC@unique=\count101
+\c@ALC@line=\count102
+\c@ALC@rem=\count103
+\c@ALC@depth=\count104
+\ALC@tlm=\skip46
+\algorithmicindent=\skip47
+)
+("D:\programas\MiKTeX 2.9\tex\latex\algorithms\algorithm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks22
+\c@algorithm=\count105
 ) (princial.aux)
 \openout1 = `princial.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
 
 ("D:\programas\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
+\scratchcounter=\count106
 \scratchdimen=\dimen114
 \scratchbox=\box30
-\nofMPsegments=\count102
-\nofMParguments=\count103
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count104
+\nofMPsegments=\count107
+\nofMParguments=\count108
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count109
 \MPscratchDim=\dimen115
-\MPnumerator=\count105
-\makeMPintoPDFobject=\count106
-\everyMPtoPDFconversion=\toks23
+\MPnumerator=\count110
+\makeMPintoPDFobject=\count111
+\everyMPtoPDFconversion=\toks24
 ) ("D:\programas\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -194,34 +213,89 @@ G,.JBIG2,.JB2,.eps]
 <problema.PNG, id=1, 727.21687pt x 405.01312pt>
 File: problema.PNG Graphic file (type png)
 <use problema.PNG>
-Package pdftex.def Info: problema.PNG  used on input line 21.
-(pdftex.def)             Requested size: 234.00238pt x 130.32372pt.
+Package pdftex.def Info: problema.PNG  used on input line 22.
+(pdftex.def)             Requested size: 312.00119pt x 173.76907pt.
  [1
 
 {C:/Users/henrique/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./proble
 ma.PNG>]
-[2] [3] [4] [5] [6] [7] [8] [9] [10] (princial.aux) ) 
+[2] [3] [4] [5] [6] [7]
+<forces.PNG, id=37, 462.528pt x 346.896pt>
+File: forces.PNG Graphic file (type png)
+<use forces.PNG>
+Package pdftex.def Info: forces.PNG  used on input line 444.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [8] [9 <./forces.PNG>]
+<caso1/desloc_caso1.png, id=45, 462.528pt x 346.896pt>
+File: caso1/desloc_caso1.png Graphic file (type png)
+<use caso1/desloc_caso1.png>
+Package pdftex.def Info: caso1/desloc_caso1.png  used on input line 495.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+<caso1/modE_caso1.png, id=46, 462.528pt x 346.896pt>
+File: caso1/modE_caso1.png Graphic file (type png)
+<use caso1/modE_caso1.png>
+Package pdftex.def Info: caso1/modE_caso1.png  used on input line 504.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [10 <./caso1/desloc_caso1.png>]
+<caso2/desloc_caso2.png, id=51, 462.528pt x 346.896pt>
+File: caso2/desloc_caso2.png Graphic file (type png)
+<use caso2/desloc_caso2.png>
+Package pdftex.def Info: caso2/desloc_caso2.png  used on input line 521.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+
+[11 <./caso1/modE_caso1.png>]
+<caso2/modE_caso2.png, id=56, 462.528pt x 346.896pt>
+File: caso2/modE_caso2.png Graphic file (type png)
+<use caso2/modE_caso2.png>
+Package pdftex.def Info: caso2/modE_caso2.png  used on input line 530.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [12 <./caso2/desloc_caso2.png>]
+<caso3/desloc_caso3.png, id=61, 462.528pt x 346.896pt>
+File: caso3/desloc_caso3.png Graphic file (type png)
+<use caso3/desloc_caso3.png>
+Package pdftex.def Info: caso3/desloc_caso3.png  used on input line 546.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [13 <./caso2/modE_caso2.png>]
+<caso3/modE_caso3.png, id=67, 462.528pt x 346.896pt>
+File: caso3/modE_caso3.png Graphic file (type png)
+<use caso3/modE_caso3.png>
+Package pdftex.def Info: caso3/modE_caso3.png  used on input line 554.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [14 <./caso3/desloc_caso3.png>]
+<caso4/desloc_caso4.png, id=72, 462.528pt x 346.896pt>
+File: caso4/desloc_caso4.png Graphic file (type png)
+<use caso4/desloc_caso4.png>
+Package pdftex.def Info: caso4/desloc_caso4.png  used on input line 573.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+ [15 <./caso3/modE_caso3.png>]
+<caso4/modE_caso4.png, id=77, 462.528pt x 346.896pt>
+File: caso4/modE_caso4.png Graphic file (type png)
+<use caso4/modE_caso4.png>
+Package pdftex.def Info: caso4/modE_caso4.png  used on input line 582.
+(pdftex.def)             Requested size: 390.0pt x 292.5128pt.
+
+[16 <./caso4/desloc_caso4.png>] [17 <./caso4/modE_caso4.png>] [18] [19]
+[20] [21] [22] (princial.aux) ) 
 Here is how much of TeX's memory you used:
- 2137 strings out of 492976
- 28207 string characters out of 3137743
- 102041 words of memory out of 3000000
- 5992 multiletter control sequences out of 15000+200000
+ 2418 strings out of 492976
+ 32040 string characters out of 3137743
+ 107257 words of memory out of 3000000
+ 6249 multiletter control sequences out of 15000+200000
  9189 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,16n,25p,461b,221s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/programas/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmbx12.pfb><D:/programas/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmex10.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmmi12.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.
-pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/progr
-amas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/programas/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><D:/programas/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr8.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.
-pfb>
-Output written on princial.pdf (10 pages, 138861 bytes).
+ 41i,16n,25p,515b,403s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/programas/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex
+10.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/p
+rogramas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><D:/programas/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/programas/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr12.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr6.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r8.pfb><D:/programas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/p
+rogramas/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on princial.pdf (22 pages, 912660 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
+ 134 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

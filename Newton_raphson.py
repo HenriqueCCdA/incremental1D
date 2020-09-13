@@ -26,6 +26,8 @@ def nao_incremental(F: float, u: float, n: int, K
     i - iteracoes
     **************************************************************************
     '''
+
+    u0: float = u   # u(n)
     for i in range(max_it):
         # matriz de rigidez atualizado (K(n+1,i))
         Ki = K.update(n, u)
@@ -34,7 +36,6 @@ def nao_incremental(F: float, u: float, n: int, K
         # ---- convergencia
         if abs(R) < tol:
             break
-
         # du(n+1,i+1) = K^-1(n+1,i) * R
         du = R/Ki
         # u(n+1,i+1) = u(n+1,i) + du(n+1,i+1)

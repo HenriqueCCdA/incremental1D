@@ -27,6 +27,7 @@ class ModElasticidade():
         self.__u_var = u_var
         self.__t_var = t_var
         self.__E = modE
+        self.__E0 = modE
 
 
     def update(self, n: float, u: float):
@@ -53,7 +54,7 @@ class ModElasticidade():
         if self.__t_var:
             gt = 4*log10(10*n+10)
         else:
-            gt = self.__E
+            gt = self.__E0
 
         if self.__u_var:
             ui = abs(u)
@@ -61,8 +62,7 @@ class ModElasticidade():
         else:
             fx = 1.0
 
-        self.__E = gt *fx
-
+        self.__E = gt * fx
         return self.__E
 
     @property

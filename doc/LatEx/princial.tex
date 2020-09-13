@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{algorithmic, algorithm}
 %---------------------------------------------------------------------------
 \begin{document}
 %---------------------------------------------------------------------------	
@@ -18,8 +19,8 @@ A Figura \ref{fig:problema} apresenta o problema resolvido. A barra esta engasta
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{problema.PNG}
-	\caption{Problema um 1D de elasticidade.}
+	\includegraphics[width=0.8\textwidth]{problema.PNG}
+	\caption{Problema 1D de elasticidade.}
 	\label{fig:problema}
 \end{figure}
 
@@ -37,7 +38,7 @@ onde $\sigma$ é a tensão uniaxial.
 
 \subsection{Discretização via elementos finitos}
 
-Aplicando o método dos resíduos ponderados na (eq.\ref{eq_equilibrio}) tem-se,
+Aplicando o método dos resíduos ponderados na (eq. \ref{eq_equilibrio}) tem-se,
 
 \begin{equation}
 \int_0^L{\dd{\sigma}{x}w\diff{L}} = 0
@@ -69,7 +70,7 @@ Considerando apenas um elementos a função de ponderação é dada por,
 w(x) = N_1(x) w_1 + N_2(x) w_2
 \end{equation} 
 	
-Substituindo a função $w$ na equação (eq.\ref{eq_var}),
+Substituindo a função $w$ na equação (eq. \ref{eq_var}),
 
 \begin{equation}
 \begin{split}
@@ -169,7 +170,7 @@ onde
 \end{equation}
 
 
-Substituindo a relação tensão-deformação (eq.\ref{eq_t_defor}) nas  (eq.\ref{eq_sigma1_final}) e (eq.\ref{eq_sigma2_final}), 
+Substituindo a relação tensão-deformação (eq. \ref{eq_t_defor}) nas  (eq. \ref{eq_sigma1_final}) e (eq.\ref{eq_sigma2_final}), 
 
 \begin{equation}
 \int_0^L B_1 D\left(t,u\right) \varepsilon \diff{L} = - \sigma\left(0,t\right)
@@ -179,7 +180,7 @@ Substituindo a relação tensão-deformação (eq.\ref{eq_t_defor}) nas  (eq.\re
 \int_0^L B_2 D\left(t,u\right) \varepsilon \diff{L}  = \sigma\left(L,t\right)
 \end{equation}
 
-Substituindo agora (eq.\ref{eq_deform_u}),
+Substituindo agora (eq. \ref{eq_deform_u}),
 
 \begin{equation}
 u_1 \int_0^L B_1 D\left(t,u\right) B_1 \diff{L} + u_2 \int_0^L B_1 D\left(t,u\right) B_2 \diff{L} = - \sigma\left(0,t\right)
@@ -284,7 +285,7 @@ Logo o incremento de tensão é dado por,
 \end{equation}
 
 
-Substituindo a relação tensão-deformação (eq.\ref{eq_t_defor}) nas  (eq.\ref{eq_sigma1_final}) e (eq.\ref{eq_sigma2_final}), 
+Substituindo a relação tensão-deformação (eq. \ref{eq_t_defor}) nas  (eq. \ref{eq_sigma1_final}) e (eq. \ref{eq_sigma2_final}), 
 
 \begin{equation}
 \int_0^L B_1 Dt_{n+1}\left(u\right) \Delta\varepsilon_{n+1} \diff{L}= -\int_0^L B_1 \sigma_{n} \diff{L} - \sigma\left(0,t\right)
@@ -369,14 +370,14 @@ Por indução matemática pode-se concluir que o sistema \ref{eq_inc_v1} é equi
 \label{eq_inc_v2}
 \end{equation}
 
-Um possibilidade alternativa de se obter a equação \ref{eq_inc_v2} considere a equação de equilíbrio \ref{eq_sigma_matricial} nps tempos $n$ e $n+1$,
+Um possibilidade alternativa de se obter a (eq. \ref{eq_inc_v2}) considere a equação de equilíbrio (eq . \ref{eq_sigma_matricial}) nos tempos $n$ e $n+1$,
 
 \begin{align}
 &\int_0^L \mathbf{B} \sigma_n \diff{L}  = \mathbf{F}^{ext}_n \label{eq_n}\\
 &\int_0^L \mathbf{B} \sigma_{n+1} \diff{L}  = \mathbf{F}^{ext}_{n+1} \label{eq_n+1}
 \end{align}
  
-Subtraindo as equações \ref{eq_n} e \ref{eq_n+1} chega-se à:
+Subtraindo as equações (\ref{eq_n}) e (\ref{eq_n+1}) chega-se à:
 
 \begin{equation}
 \int_0^L \mathbf{B} \Delta \sigma_{n+1} \diff{L}  = \mathbf{F}^{ext}_{n+1} - \mathbf{F}^{ext}_n = \Delta\mathbf{F}^{ext}_{n+1}
@@ -397,6 +398,333 @@ O que leva novamente à,
 \label{eq_inc_v3}
 \end{equation}
 
+\subsection{Malha de um elemento}
+
+Para a malha de um elemento as condições de contorno o sistema de duas equações se reduzir à,
+
+\begin{equation}
+k^{n+1}_{22}(u^{n+1}_2) u^{n+1}_2 = (F^{ext}_2)^{n+1}
+\end{equation}
+
+Considerando um elemento linear, tem-se, 
+
+\begin{equation}
+k^{n+1}_{22}(u^{n+1}) = \int_0^L B_2 D_{n+1}\left(u_{n+1}\right) B_2 \diff{L} = \frac{1}{L} D_{n+1}\left(u_{n+1}\right)
+\end{equation}
+
+De maneira simplificada, 
+
+\begin{equation}
+k_{n+1}(u_{n+1}) u_{n+1} = F^{ext}_{n+1}
+\end{equation}
+
+Já quando se considera a equação constitutiva incremental
+
+\begin{equation}
+k^t_{n+1}(u_{n+1}) \Delta u_{n+1} = \Delta F^{ext}_{n+1}
+\end{equation}
+
+\noindent
+onde
+
+\begin{equation}
+k^t_{n+1}(u_{n+1}) = \frac{1}{L} Dt_{n+1}\left(u_{n+1}\right)
+\end{equation}
+
+
+\section{Testes}
+
+Quatro métodos de solução são considerados, são eles: Linear (Lin); Newton-Raphson (NR); Newton-Raphson incremental (NRI), Newthon-Raphson com equação constitutiva incremental (NRCI). Para os testes foi considerado que $L = 1$. Quatra casos serão considerado: $D$ constante; $D(t)$ variando com o tempo; $D(u)$ variando com u; $D(t, u)$ variando com t e u.  
+
+
+A Figura \ref{fig:forcas} apresenta o carregamento aplicado em todos os casos. O tempo é considerado como valores inteiros. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{forces.PNG}
+	\caption{Carregamento variavel no tempo.}
+	\label{fig:forcas}
+\end{figure}
+
+\subsection{Variação da matriz constitutiva}
+
+A variação da matriz constitutiva será defina por,
+
+\begin{equation}
+D(t,u) = 4g(t)h(u)
+\end{equation}
+
+A variação de g(t) é dada por,
+
+\begin{equation}
+g(t) = log(10*(t+1))
+\end{equation}
+
+\noindent
+A função $g(t)$ são valore maiores que 1, portanto aumentam a rigidez. 
+
+
+\noindent
+Já a variação de h(u) é,
+
+\begin{equation}
+h(u) = 3.1760|u|^4 - 8.3625|u|^3 + 7.9152|u|^2 - 3.2258|u| + 0.9994
+\end{equation}
+\noindent
+A função $h(u)$ inicia-se em 1.0 e tente a 0.5 quando $|u|$ aumenta, portante diminuem a rigidez. 
+
+
+Iremos forçar que, 
+
+\begin{equation}
+D(t, u) = Dt(t, u)
+\end{equation}
+
+\subsection{Caso 1}
+
+Neste caso a matriz de coeficientes é constante,
+
+\begin{equation}
+D(t,u) = 4.0
+\end{equation}
+
+A Figura \ref{fig:u_caso1} mostra a variação do comprimento da barra. Todos os métodos de solução geram o mesmo resultado
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso1/desloc_caso1.png}
+	\caption{Comprimento da barra ao longo do tempo caso 1.}
+	\label{fig:u_caso1}
+\end{figure}
+
+A Figura \ref{fig:modE_caso1} a variação da matriz constitutiva, que neste caso é constante.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso1/modE_caso1.png}
+	\caption{Variação da matriz constitutiva (módulo de elasticidade) ao longo do tempo caso 1.}
+	\label{fig:modE_caso1}
+\end{figure}
+
+\subsection{Caso 2}
+
+Neste caso a matriz de coeficientes tem variação temporal dado por,
+
+\begin{equation}
+D(t,u) = D(t) = 4g(t)
+\end{equation}
+
+A Figura \ref{fig:u_caso2} mostra a variação do comprimento da barra. Os métodos Lin, NR, NRI dão o mesmo resultados, o que é esperado pois $D(t)$ varia apenas no tempo. Duas coisa chamam a atenção no método NRCI. A primeira e que quando a carga é mantida constante ($\Delta F^{Ext} = 0$) o comprimento da barra não se altera. A segunda é que mesmo quando a carga é zerada o comprimento da barra não volta ao comprimento original, havendo assim uma deformação residual.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso2/desloc_caso2.png}
+	\caption{Comprimento da Barra ao longo do tempo caso 2.}
+	\label{fig:u_caso2}
+\end{figure}
+
+A Figura \ref{fig:modE_caso2} a variação da matriz constitutiva. O modelo de elasticidade aumenta em função do tempo, endurecendo o material. Todos os métodos geram os mesmo resultado com esperado.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso2/modE_caso2.png}
+	\caption{Variação da matriz constitutiva (módulo de elasticidade) ao longo do tempo caso 2.}
+	\label{fig:modE_caso2}
+\end{figure}
+
+\subsection{Caso 3}
+
+Neste caso a matriz de coeficientes tem variação em relação ao deslocamento,
+
+\begin{equation}
+D(t,u) = D(u) = 4h(u)
+\end{equation}
+
+A Figura \ref{fig:u_caso3} mostra a variação do comprimento da barra. Os resultados NR e NRI são iguais. O resultado do Lin esta errado pois, isso pode-ser confirmado observando que $F^{ext} - K(u)u \neq 0$ em alguns passos de carga. O que não acontece nos NR, NRI e NRCI, nesse métodos sempre se consegue o equilíbrio ($F^{ext} - K(u)u = 0$). Neste caso é interessante notar que em todos os métodos o comprimento da barra fica constante no intervalo aonde a carga não muda. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso3/desloc_caso3.png}
+	\caption{Comprimento da Barra ao longo do tempo caso 3.}
+	\label{fig:u_caso3}
+\end{figure}
+
+A Figura \ref{fig:modE_caso3} a variação da matriz constitutiva. Novamente os resultados NR e NRI são iguais. O Lin esta erra pois os deslocamentos não satisfazem a equação de equilibro em alguns passos de carga.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso3/modE_caso3.png}
+	\caption{Variação da matriz constitutiva (módulo de elasticidade) ao longo do tempo caso 3.}
+	\label{fig:modE_caso3}
+\end{figure}
+
+
+\subsection{Caso 4}
+
+Neste caso a matriz de coeficientes tem variação em relação ao deslocamento,
+
+\begin{equation}
+D(t,u) = 4g(t)h(u)
+\end{equation}
+
+A Figura \ref{fig:u_caso4} mostra a variação do comprimento da barra. Novamente as mesma conclusões. Os resultados NR e NRI são iguais. O Lin esta errado. No NRCI o comprimento da barra fica constante quando a carga não muda e no final temos uma deformação residual.    
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso4/desloc_caso4.png}
+	\caption{Comprimento da Barra ao longo do tempo caso 4.}
+	\label{fig:u_caso4}
+\end{figure}
+
+A Figura \ref{fig:modE_caso4} a variação da matriz constitutiva. Os resultados NR e NRI são iguais.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{caso4/modE_caso4.png}
+	\caption{Variação da matriz constitutiva (módulo de elasticidade) ao longo do tempo caso 4.}
+	\label{fig:modE_caso4}
+\end{figure}
+%---------------------------------------------------------------------------
+\section{Algoritmos de solução}
+
+\subsection{Newton Raphson (NR)}
+
+A equação do sistema de equações não linear,
+
+\begin{equation}
+\mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \mathbf{u}_{n+1} = \mathbf{F}^{ext}_{n+1}
+\end{equation}
+
+\noindent 
+Escrevendo o Resíduo,
+\begin{equation}
+\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \mathbf{u}_{u+1} 
+\end{equation}
+
+\noindent 
+A matriz jacobiana é aproxima por,
+
+\begin{equation}
+\frac{\partial \mathbf{R}}{\partial \mathbf{u}} = \mathbf{J} \approx - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) 
+\end{equation}
+
+\noindent
+O algorítimo de solução é,
+
+\begin{algorithm}[H]
+\caption{Newton-Rapshon}
+\begin{algorithmic}
+\STATE $i = 0$
+\STATE $\mathbf{u}^{i}_{n+1} = \mathbf{u}_n$
+\WHILE{Até convergir} 
+    \STATE $\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}^i_{n+1}) \mathbf{u}^i_{n+1} $ 
+    \STATE $\Delta \mathbf{u}^{i+1}_{n+1} = \left(\mathbf{K}_{n+1}(\mathbf{u}^i_{n+1})\right)^{-1} \mathbf{R}^i_{n+1}$ 
+    \STATE $\mathbf{u}^{i+1}_{n+1} = \Delta \mathbf{u}^{i+1}_{n+1} + \mathbf{u}^{i}_{n+1}$
+	\STATE $i = i+1$
+\ENDWHILE	
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Newton Raphson incremental (NRI)}
+
+A equação do sistema de equações não linear,
+
+\begin{equation}
+\mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \mathbf{u}_{u+1} = \mathbf{F}^{ext}_{n+1}
+\end{equation}
+
+\noindent 
+Escrevendo o Resíduo,
+\begin{equation}
+\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \mathbf{u}_{n+1} 
+\end{equation}
+
+\noindent
+Considerando que $\mathbf{u}_{n+1} = \mathbf{u}_{n} + \Delta \mathbf{u}_{n+1}$ pode-se escrever o resíduo
+
+\begin{equation}
+\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \Delta \mathbf{u}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \mathbf{u}_{n} 
+\end{equation}
+
+\noindent 
+A matriz jacobiana é aproxima por,
+
+\begin{equation}
+\frac{\partial \mathbf{R}}{\partial \Delta \mathbf{u}} = \mathbf{J} \approx - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) 
+\end{equation}
+
+\noindent
+O algorítimo de solução é,
+
+\begin{algorithm}[H]
+\caption{Newton-Rapshon incremental}
+\begin{algorithmic}
+	\STATE $i = 0$
+	\STATE $\Delta \mathbf{u}^{i}_{n+1} = 0$
+	\WHILE{até convergir} 
+	\STATE $\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}^i_{n+1}) \Delta \mathbf{u}^i_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}^i_{n+1}) \mathbf{u}_{n} $ 
+	\STATE $\Delta \Delta \mathbf{u}^{i+1}_{n+1} = \left(\mathbf{K}_{n+1}(\mathbf{u}^i_{n+1})\right)^{-1} \mathbf{R}^i_{n+1}$ 
+	\STATE $\Delta \mathbf{u}^{i+1}_{n+1} = \Delta \Delta \mathbf{u}^{i+1}_{n+1} + \Delta \mathbf{u}^{i}_{n+1}$
+	\STATE $\mathbf{u}^{i+1}_{n+1} = \Delta \mathbf{u}^{i+1}_{n+1} + \mathbf{u}_{n}$
+	\STATE $i = i+1$
+	\ENDWHILE		
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Linear (Lin)}
+
+O algorítimo de solução é,
+
+\begin{algorithm}[H]
+\caption{Linear}
+\begin{algorithmic}
+	\STATE $\mathbf{u}^{i+1}_{n+1} = \left(\mathbf{K}_{n+1}(\mathbf{u}^i_{n+1})\right)^{-1} \mathbf{F}^{ext}_{n+1} $		
+\end{algorithmic}
+\end{algorithm}
+ 
+ 
+\subsection{Newton Raphson com lei constitutiva incremental (NRCI)}
+
+A equação do sistema de equações não linear,
+
+\begin{equation}
+\mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \Delta \mathbf{u}_{n+1} = \Delta \mathbf{F}^{ext}_{n+1}
+\end{equation}
+
+\noindent 
+Escrevendo o Resíduo,
+\begin{equation}
+\mathbf{R}_{n+1} = \Delta \mathbf{F}^{ext}_{n+1} - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) \Delta \mathbf{u}_{n+1} 
+\end{equation}
+
+
+\noindent 
+A matriz jacobiana é aproxima por,
+
+\begin{equation}
+\frac{\partial \mathbf{R}}{\partial \Delta \mathbf{u}} = \mathbf{J} \approx - \mathbf{K}_{n+1}(\mathbf{u}_{n+1}) 
+\end{equation}
+
+\noindent
+O algorítimo de solução é,
+
+\begin{algorithm}[H]
+	\caption{Newton-Rapshon Lei constitutiva incremental}
+	\begin{algorithmic}
+		\STATE $i = 0$
+		\STATE $\Delta \mathbf{u}^{i}_{n+1} = 0$
+		\WHILE{até convergir} 
+		\STATE $\mathbf{R}_{n+1} = \mathbf{F}^{ext}_{n+1} - \mathbf{F}^{ext}_{n} - \mathbf{K}_{n+1}(\mathbf{u}^i_{n+1}) \Delta \mathbf{u}^i_{n+1}$ 
+		\STATE $\Delta \Delta \mathbf{u}^{i+1}_{n+1} = \left(\mathbf{K}_{n+1}(\mathbf{u}^i_{n+1})\right)^{-1} \mathbf{R}^i_{n+1}$ 
+		\STATE $\Delta \mathbf{u}^{i+1}_{n+1} = \Delta \Delta \mathbf{u}^{i+1}_{n+1} + \Delta \mathbf{u}^{i}_{n+1}$
+		\STATE $\mathbf{u}^{i+1}_{n+1} = \Delta \mathbf{u}^{i+1}_{n+1} + \mathbf{u}_{n}$
+		\STATE $i = i+1$
+		\ENDWHILE		
+	\end{algorithmic}
+\end{algorithm}
+ 
+ 
+\section{}
+
 \subsection{Matriz jacobina}
 
 A matriz Jacobina do vetor $\mathbf{F}$ em relação ao vetor $\mathbf{x}$ é dado por, 
@@ -404,11 +732,11 @@ A matriz Jacobina do vetor $\mathbf{F}$ em relação ao vetor $\mathbf{x}$ é da
 \begin{equation}
 \mathbf{J}(\mathbf{F}, \mathbf{x}) = 
 \begin{bmatrix}
-	\frac{\partial F_1}{\partial x_1} & ... & \frac{\partial F_1}{\partial x_n}\\ 
-	\\
-	\frac{\partial F_2}{\partial x_1} & ... & \frac{\partial F_2}{\partial x_n}\\ 
-	\\
-	\frac{\partial F_n}{\partial x_1} & ... & \frac{\partial F_n}{\partial x_n}
+\frac{\partial F_1}{\partial x_1} & ... & \frac{\partial F_1}{\partial x_n}\\ 
+\\
+\frac{\partial F_2}{\partial x_1} & ... & \frac{\partial F_2}{\partial x_n}\\ 
+\\
+\frac{\partial F_n}{\partial x_1} & ... & \frac{\partial F_n}{\partial x_n}
 \end{bmatrix}
 \end{equation}
 
@@ -488,41 +816,6 @@ Onde a matriz $\mathbf{dK}$ é dada por
 \noindent
 É fácil perceber que a matriz não é simétrica.
 
-\subsection{Malha de um elemento}
-
-Para a malha de um elemento as condições de contorno o sistema de duas equações se reduzir à,
-
-\begin{equation}
-k^{n+1}_{22}(u^{n+1}_2) u^{n+1}_2 = (F^{ext}_2)^{n+1}
-\end{equation}
-
-Considerando um elemento linear 
-
-\begin{equation}
-k^{n+1}_{22}(u^{n+1}) = \int_0^L B_2 D_{n+1}\left(u_{n+1}\right) B_2 \diff{L} = \frac{1}{L} D_{n+1}\left(u_{n+1}\right)
-\end{equation}
-
-
-\subsection{Variação da matriz constitutiva}
-
-A variação da matriz constitutiva será defina por,
-
-\begin{equation}
-D(t,u) = g(t)h(u)
-\end{equation}
-
-A variação de g(t) é definida por,
-
-\begin{equation}
-g(t) = 3*log(10*(t+1))
-\end{equation}
-
-\noindent
-Já a variação de h(t) é definida por,
-
-\begin{equation}
-h(u) = 3.1760x^4 - 8.3625x^3 + 7.9152x^2 - 3.2258x + 0.9994
-\end{equation}
 
 \subsection{Relação da matriz constitutiva tangente e a matriz constitutiva}
 
@@ -557,6 +850,43 @@ Logo a relação constitutiva incremental é dada por,
 \dot {\sigma} = \left(\frac{\partial D}{\partial \varepsilon} \varepsilon + D\right) \dot{\varepsilon}
 \end{equation}
 
-%---------------------------------------------------------------------------
+Se a tensão é dada por, 
+\begin{equation}
+\sigma(t, \varepsilon) = D(t, \varepsilon) \varepsilon
+\end{equation}
+
+A derivada em relação ao tempo é dada por,
+
+\begin{equation}
+\frac{\partial \sigma}{\partial t} = \frac{\partial D}{\partial t} \varepsilon + D \frac{\partial \varepsilon}{\partial t}
+\label{deriva_temp}
+\end{equation}
+
+Considerando que $D(f(t),g(t))$ a derivada em relação ao tempo é, 
+
+\begin{equation}
+\frac{\partial D}{\partial t} = \frac{\partial D}{\partial t} \frac{\partial f}{\partial t} + \frac{\partial D}{\partial \varepsilon} \frac{\partial g}{\partial t}
+\end{equation}
+
+\noindent 
+como $f(t) = t$ e $g(t) = \varepsilon(t)$, temos,
+
+\begin{equation}
+\frac{\partial D}{\partial t} = \frac{\partial D}{\partial t} + \frac{\partial D}{\partial \varepsilon} \frac{\partial \varepsilon}{\partial t}
+\end{equation}
+
+\noindent 
+Substituindo na (eq. \ref{deriva_temp}),
+\begin{equation}
+\dot \sigma = \left(\frac{\partial D}{\partial t} + \frac{\partial D}{\partial \varepsilon} \dot \varepsilon\right) \varepsilon + D \dot \varepsilon
+\end{equation}
+
+\noindent 
+Rearranjando
+\begin{equation}
+\dot \sigma = \frac{\partial D}{\partial t} \varepsilon + \left( \frac{\partial D}{\partial \varepsilon} \varepsilon + D \right) \dot \varepsilon
+\end{equation} 
+ 
+ 
 \end{document}
 %---------------------------------------------------------------------------
